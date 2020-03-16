@@ -1,0 +1,15 @@
+### JetBrains template
+
+.idea/*
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+
+# Gradle:
+*.iml
+
+# IntelliJ
+out/
+
+### Gradle template
+.gradle
+build/
