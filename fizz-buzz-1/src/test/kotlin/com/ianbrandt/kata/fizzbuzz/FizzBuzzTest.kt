@@ -3,7 +3,7 @@ package com.ianbrandt.kata.fizzbuzz
 import io.mockk.mockk
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.DynamicTest
+import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 
@@ -26,7 +26,7 @@ class FizzBuzzTest {
 			30 to "fizzbuzz",
 			99 to "fizz",
 			100 to "buzz").map { (input, expected) ->
-		DynamicTest.dynamicTest("fizzBuzzOf($input) is \"$expected\"") {
+		dynamicTest("fizzBuzzOf($input) is \"$expected\"") {
 			assertThat(fizzBuzzOf(input)).isEqualTo(expected)
 		}
 	}
