@@ -13,19 +13,4 @@ jobs:
     steps:
       - checkout
 
-      - run: ls -alR
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "build.gradle.kts" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run: ./gradlew dependencies
-
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle.kts" }}
-
-      - run: ./gradlew build
+      - run: git lfs ls-files
