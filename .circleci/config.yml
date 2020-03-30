@@ -13,6 +13,8 @@ jobs:
     steps:
       - checkout
 
+      - run: ls -alR
+
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "build.gradle.kts" }}
