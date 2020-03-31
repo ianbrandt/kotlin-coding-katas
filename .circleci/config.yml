@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
@@ -12,8 +12,7 @@ jobs:
 
     steps:
       - checkout
-      - run:
-        command: |
+      - run: |
           apt-get update
           apt-get install git-lfs
           git lfs pull
