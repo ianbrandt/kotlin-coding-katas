@@ -13,19 +13,19 @@ class FizzBuzzTest {
 	fun testFizzBuzzOf() = listOf(
 			1 to "1",
 			2 to "2",
-			3 to "fizz",
+			3 to "Fizz",
 			4 to "4",
-			5 to "buzz",
-			6 to "fizz",
+			5 to "Buzz",
+			6 to "Fizz",
 			7 to "7",
 			7 to "7",
 			8 to "8",
-			9 to "fizz",
-			10 to "buzz",
-			15 to "fizzbuzz",
-			30 to "fizzbuzz",
-			99 to "fizz",
-			100 to "buzz").map { (input, expected) ->
+			9 to "Fizz",
+			10 to "Buzz",
+			15 to "FizzBuzz",
+			30 to "FizzBuzz",
+			99 to "Fizz",
+			100 to "Buzz").map { (input, expected) ->
 		dynamicTest("fizzBuzzOf($input) is \"$expected\"") {
 			assertThat(fizzBuzzOf(input)).isEqualTo(expected)
 		}
