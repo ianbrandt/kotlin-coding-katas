@@ -2,6 +2,7 @@ package com.ianbrandt.kata.fizzbuzz
 
 import io.mockk.mockk
 import io.mockk.verify
+import io.mockk.verifyOrder
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.Test
@@ -40,6 +41,22 @@ class FizzBuzzTest {
 
 		verify(exactly = 100) {
 			mockPrintLn(any())
+		}
+	}
+
+	@Test
+	fun `test fizzBuzz1To100() prints FizzBuzzes`() {
+
+		val mockPrintLn = mockk<(String) -> Unit>()
+
+		fizzBuzz1to100(mockPrintLn)
+
+		verifyOrder {
+			mockPrintLn("1")
+			mockPrintLn("2")
+			mockPrintLn("Fizz")
+			mockPrintLn("Buzz")
+			mockPrintLn("FizzBuzz")
 		}
 	}
 }
