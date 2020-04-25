@@ -59,4 +59,21 @@ class FizzBuzzTest {
 			mockPrintLn("FizzBuzz")
 		}
 	}
+
+	@Test
+	fun `test fizzBuzz1To100() without MockK`() {
+
+		val prints = mutableListOf<String>()
+
+		val mockPrintLn: (String) -> Unit = { print -> prints.add(print) }
+
+		fizzBuzz1to100(mockPrintLn)
+
+		assertThat(prints).hasSize(100)
+		assertThat(prints[0]).isEqualTo("1")
+		assertThat(prints[1]).isEqualTo("2")
+		assertThat(prints[2]).isEqualTo("Fizz")
+		assertThat(prints[4]).isEqualTo("Buzz")
+		assertThat(prints[14]).isEqualTo("FizzBuzz")
+	}
 }
