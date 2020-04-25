@@ -33,7 +33,7 @@ class FizzBuzzTest {
 	}
 
 	@Test
-	fun `test fizzBuzz1To100() prints 100 times`() {
+	fun `test fizzBuzz1To100() prints 100 FizzBuzzes`() {
 
 		val mockPrintLn = mockk<(String) -> Unit>()
 
@@ -42,14 +42,6 @@ class FizzBuzzTest {
 		verify(exactly = 100) {
 			mockPrintLn(any())
 		}
-	}
-
-	@Test
-	fun `test fizzBuzz1To100() prints FizzBuzzes`() {
-
-		val mockPrintLn = mockk<(String) -> Unit>()
-
-		fizzBuzz1to100(mockPrintLn)
 
 		verifyOrder {
 			mockPrintLn("1")
@@ -61,13 +53,61 @@ class FizzBuzzTest {
 	}
 
 	@Test
-	fun `test fizzBuzz1To100() without MockK`() {
+	fun `test fizzBuzz1To100() with closure`() {
 
 		val prints = mutableListOf<String>()
 
 		val mockPrintLn: (String) -> Unit = { print -> prints.add(print) }
 
 		fizzBuzz1to100(mockPrintLn)
+
+		assertThat(prints).hasSize(100)
+		assertThat(prints[0]).isEqualTo("1")
+		assertThat(prints[1]).isEqualTo("2")
+		assertThat(prints[2]).isEqualTo("Fizz")
+		assertThat(prints[4]).isEqualTo("Buzz")
+		assertThat(prints[14]).isEqualTo("FizzBuzz")
+	}
+
+	@Test
+	fun `test fizzBuzz1To100() with anonymous function object`() {
+
+		val printer = object : (String) -> Unit {
+
+			val prints = mutableListOf<String>()
+
+			override fun invoke(fizzBuzz: String) {
+				prints.add(fizzBuzz)
+			}
+		}
+
+		fizzBuzz1to100(printer)
+
+		val prints = printer.prints
+
+		assertThat(prints).hasSize(100)
+		assertThat(prints[0]).isEqualTo("1")
+		assertThat(prints[1]).isEqualTo("2")
+		assertThat(prints[2]).isEqualTo("Fizz")
+		assertThat(prints[4]).isEqualTo("Buzz")
+		assertThat(prints[14]).isEqualTo("FizzBuzz")
+	}
+
+	@Test
+	fun `test fizzBuzz1To100() with anonymous Printer object`() {
+
+		val printer = object : Printer {
+
+			val prints = mutableListOf<String>()
+
+			override fun print(fizzBuzz: String) {
+				prints.add(fizzBuzz)
+			}
+		}
+
+		fizzBuzz1to100(printer)
+
+		val prints = printer.prints
 
 		assertThat(prints).hasSize(100)
 		assertThat(prints[0]).isEqualTo("1")
