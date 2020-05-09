@@ -3,4 +3,5 @@ plugins {
 	`junit-project`
 	`assertj-project`
 	`mockk-project`
+	`mockito-kotlin-project`
 }

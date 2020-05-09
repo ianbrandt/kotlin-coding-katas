@@ -1,8 +1,5 @@
 package com.ianbrandt.kata.fizzbuzz
 
-import io.mockk.mockk
-import io.mockk.verify
-import io.mockk.verifyOrder
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.Test
@@ -33,33 +30,13 @@ class FizzBuzzTest {
 	}
 
 	@Test
-	fun `test fizzBuzz1To100() prints 100 FizzBuzzes`() {
+	fun `test fizzBuzz1To100() prints 100 FizzBuzzes with test Printer`() {
 
-		val mockPrintLn = mockk<(String) -> Unit>()
+		val printer = TestPrinter()
 
-		fizzBuzz1to100(mockPrintLn)
+		fizzBuzz1to100(printer)
 
-		verify(exactly = 100) {
-			mockPrintLn(any())
-		}
-
-		verifyOrder {
-			mockPrintLn("1")
-			mockPrintLn("2")
-			mockPrintLn("Fizz")
-			mockPrintLn("Buzz")
-			mockPrintLn("FizzBuzz")
-		}
-	}
-
-	@Test
-	fun `test fizzBuzz1To100() with closure`() {
-
-		val prints = mutableListOf<String>()
-
-		val mockPrintLn: (String) -> Unit = { print -> prints.add(print) }
-
-		fizzBuzz1to100(mockPrintLn)
+		val prints = printer.prints
 
 		assertThat(prints).hasSize(100)
 		assertThat(prints[0]).isEqualTo("1")
@@ -70,7 +47,31 @@ class FizzBuzzTest {
 	}
 
 	@Test
-	fun `test fizzBuzz1To100() with anonymous function object`() {
+	fun `test fizzBuzz1To100() prints 100 FizzBuzzes with anonymous Printer object`() {
+
+		val printer = object : Printer {
+
+			val prints = mutableListOf<String>()
+
+			override fun print(fizzBuzz: String) {
+				prints.add(fizzBuzz)
+			}
+		}
+
+		fizzBuzz1to100(printer)
+
+		val prints = printer.prints
+
+		assertThat(prints).hasSize(100)
+		assertThat(prints[0]).isEqualTo("1")
+		assertThat(prints[1]).isEqualTo("2")
+		assertThat(prints[2]).isEqualTo("Fizz")
+		assertThat(prints[4]).isEqualTo("Buzz")
+		assertThat(prints[14]).isEqualTo("FizzBuzz")
+	}
+
+	@Test
+	fun `test fizzBuzz1To100() prints 100 FizzBuzzes with anonymous function object`() {
 
 		val printer = object : (String) -> Unit {
 
@@ -94,20 +95,13 @@ class FizzBuzzTest {
 	}
 
 	@Test
-	fun `test fizzBuzz1To100() with anonymous Printer object`() {
+	fun `test fizzBuzz1To100() prints 100 FizzBuzzes with closure`() {
 
-		val printer = object : Printer {
+		val prints = mutableListOf<String>()
 
-			val prints = mutableListOf<String>()
+		val mockPrintLn: (String) -> Unit = { print -> prints.add(print) }
 
-			override fun print(fizzBuzz: String) {
-				prints.add(fizzBuzz)
-			}
-		}
-
-		fizzBuzz1to100(printer)
-
-		val prints = printer.prints
+		fizzBuzz1to100(mockPrintLn)
 
 		assertThat(prints).hasSize(100)
 		assertThat(prints[0]).isEqualTo("1")
