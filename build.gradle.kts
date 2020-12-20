@@ -3,7 +3,7 @@ import com.github.benmanes.gradle.versions.updates.gradle.GradleReleaseChannel.C
 import org.gradle.api.tasks.wrapper.Wrapper.DistributionType.ALL
 
 plugins {
-	id("com.github.ben-manes.versions") version "0.28.0"
+	id("com.github.ben-manes.versions") version "0.36.0"
 }
 
 allprojects {
@@ -33,7 +33,7 @@ tasks {
 	}
 
 	named<Wrapper>("wrapper") {
-		gradleVersion = "6.4.1"
+		gradleVersion = "6.8-rc-3"
 		distributionType = ALL
 	}
 }
