@@ -18,7 +18,10 @@ java {
 tasks {
 
 	withType<KotlinCompile>().configureEach {
-		kotlinOptions.jvmTarget = VERSION_11.toString()
-		kotlinOptions.freeCompilerArgs += "-Xinline-classes"
+		with(kotlinOptions) {
+			useIR = true
+			jvmTarget = JavaVersion.VERSION_11.toString()
+			freeCompilerArgs = freeCompilerArgs + "-Xinline-classes"
+		}
 	}
 }
