@@ -1,3 +1,10 @@
+dependencyResolutionManagement {
+	@Suppress("UnstableApiUsage")
+	repositories {
+		mavenCentral()
+	}
+}
+
 rootProject.name = "kotlin-coding-katas"
 
 include(":fizz-buzz-1")

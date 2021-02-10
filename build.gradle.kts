@@ -9,11 +9,6 @@ plugins {
 allprojects {
 	group = "com.ianbrandt"
 	version = "1.0-SNAPSHOT"
-
-	repositories {
-		mavenCentral()
-		jcenter()
-	}
 }
 
 fun isNonStable(version: String): Boolean {
